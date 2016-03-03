@@ -13,25 +13,40 @@ import React, {
   View
 } from 'react-native'
 
+const CategoryList = require('./CategoryList')
 const RestKit = require('react-native-rest-kit')
 const Product = RestKit.Model.extend({
   urlRoot: 'http://www.magento2.loc/rest/V1/products/'
+})
+const Category = RestKit.Model.extend({
+  urlRoot: 'http://www.magento2.loc/rest/V1/categories/'
 })
 
 class Rento extends Component {
   _onPressButtonPOST() {
     const option = {
       headers: {
-        Authentiacation: 'Bearer whijl0k0yiwkbocqy3hg9it3v5rfg7t3'
+        Authentiacation: 'Bearer j3d2phxds8oih3hmupxt7lock7kv5pu5'
       }
     }
-    const pro = new Product({
-      _id: '24-MB01',
-    })
-    pro.fetch(option, (error) => {
+    // const pro = new Product({
+    //   _id: '24-MB01',
+    // })
+
+
+    // pro.fetch(option, (error) => {
+    //   if (error) console.log(error)
+    //   console.log(pro)
+    // })
+    const cat = new Category()
+    RestKit.sync('GET', cat, option, (error) => {
       if (error) console.log(error)
-      console.log(pro)
+      console.log(cat)
     })
+    // cat.get(option, (error) => {
+    //   if (error) console.log(error)
+    //   console.log(cat)
+    // })
 
     // var request = {
     //   method: 'POST',
@@ -57,14 +72,15 @@ class Rento extends Component {
   }
   render() {
     return (
-      <View style={styles.container}>
-        <TouchableHighlight onPress={this._onPressButtonGET} style={styles.button}>
-          <Text>GET</Text>
-        </TouchableHighlight>
-        <TouchableHighlight onPress={this._onPressButtonPOST} style={styles.button}>
-          <Text>POST</Text>
-        </TouchableHighlight>
-      </View>
+      <CategoryList/>
+      // <View style={styles.container}>
+      //   <TouchableHighlight onPress={this._onPressButtonGET} style={styles.button}>
+      //     <Text>GET</Text>
+      //   </TouchableHighlight>
+      //   <TouchableHighlight onPress={this._onPressButtonPOST} style={styles.button}>
+      //     <Text>POST</Text>
+      //   </TouchableHighlight>
+      // </View>
     )
   }
 }
